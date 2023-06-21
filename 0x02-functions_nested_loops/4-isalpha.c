@@ -2,7 +2,7 @@
 /**
  * _isalpha - shows 1 if the input is a letter,
  * another case, shows 0
- * @c
+ * @c: character to be checked
  * Return: 1 for letters, return 0 for the rest
  */
 int _isalpha(int c)
@@ -11,9 +11,5 @@ int _isalpha(int c)
 	{
 		return (1);
 	}
-	else
-	{
 		return (0);
-	}
-	_putchar('\n');
 }
