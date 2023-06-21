@@ -4,7 +4,7 @@
  *   * @c: the init to check
  *    *
  *     * Return: absolute value
- *      */
+ */
 int _abs(int c)
 {
 	if (c >= 0)
