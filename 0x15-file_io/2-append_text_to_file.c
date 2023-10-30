@@ -1,31 +1,45 @@
 #include "main.h"
+#include <stdlib.h>
+#include <fcntl.h>
 
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <unistd.h>
+
+#include <stddef.h>
 /**
- * append_text_to_file - a function that ppends a text
- * @filename: the file pointer
- * @text_content: appending string
- * Return: returns 0 on succesful exection
+ * create_file - creates a text file.
+ *
+ * @filename: name of file to do I/O operations on.
+ * @text_content: NULL terminated string to write to file created.
+ * Return: 1 on success, -1 on failure.
  */
-int append_text_to_file(const char *filename, char *text_content)
+
+int create_file(const char *filename, char *text_content)
 {
-	int o, w, len = 0;
+	ssize_t count;
+	int fd, index;
 
 	if (filename == NULL)
 		return (-1);
 
-	if (text_content != NULL)
-	{
-		for (len = 0; text_content[len];)
-			len++;
-	}
+	fd = open(filename, O_CREAT | O_WRONLY | O_TRUNC, 0600);
 
-	o = open(filename, O_WRONLY | O_APPEND);
-	w = write(o, text_content, len);
-
-	if (o == -1 || w == -1)
+	if (fd == -1)
 		return (-1);
 
-	close(o);
+	if (text_content != NULL)
+	{
+		for (index = 0; text_content[index]; index++)
+			;
+	}
+
+	count = write(fd, text_content, index);
+
+	if (count == -1)
+		return (-1);
+
+	close(fd);
 
 	return (1);
 }
